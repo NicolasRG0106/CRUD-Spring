@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Listado de personas</title>
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<link rel="stylesheet" th:href="@{/style.css}"/>
+
+</head>
+<body>
+	<div class="container text-center">
+		<div class="shadow p-3 mb-5 bg-body rounded"><H1>PERSONAS</H1></div>
+		<br>
+		<table class="table table-striped table-bordered">
+			<thead class="thead-dark">
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>Email</th>
+				<th>Acciones</th>
+			</thead>
+			<tbody>
+			</tbody>
+			<tr th:each="personas : ${personas}">
+				<td th:text="${personas.nombre}">Nombre</td>
+				<td th:text="${personas.apellido}">Apellido</td>
+				<td th:text="${personas.email}">Email</td>
+				<td><a th:href="@{/personas/editar/{id}(id=${personas.id})}"
+					class="btn btn-primary">Editar</a> <a
+					th:href="@{/personas/{id}(id=${personas.id})}"
+					class="btn btn-danger">Eliminar</a></td>
+			</tr>
+		</table>
+		<div class="row">
+			<div class="col-lg-3">
+				<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  					Agregar
+				</button>
+					<form th:action="@{/personas}" th:object="${personas}" method="POST">
+					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+					<div class="modal-content">
+					<div class="modal-header">
+					 <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Personas</h1>
+					  <button type="button" class="close" data-bs-toggle="modal" aria-label="Close">
+         				 <span aria-hidden="true">&times;</span>
+       				 </button>
+					</div>
+					<div class="modal-body">
+					<div class="form-group " >
+        			<label>Nombre: </label>
+        			<input type="text" name="nombre"  class="form-control" placeholder="Escriba su nombre :" required>
+     				</div>
+     				<div class="form-group">
+       				 <label>Apellido: </label>
+       				 <input type="text" name="apellido"  class="form-control" placeholder="Escriba su apellido :" required>
+     				 </div>
+     				 <div class="form-group">
+      				 <label>Email: </label>
+       				<input type="text" name="email" class="form-control" placeholder="Escriba su email :" required>
+    				</div>
+    				<div class="modal-footer">
+    						<a><button class="btn btn-success">Guardar</button></a>
+      					    <a th:href="@{/personas}" class="btn btn-danger">Cancelar</a>
+    				</div>
+					</div>
+					</div>
+					</div>
+					</div>
+					</form>
+			</div>
+		</div>
+    </div>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>
